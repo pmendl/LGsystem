@@ -1,0 +1,41 @@
+.boss-container {
+  	display: flex;
+  	flex-wrap: nowrap;
+  	flex-direction: column;
+}
+
+.boss-lines {
+	width: 1em;
+    position: relative;
+}
+
+.lines-box {
+	display:flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+}
+
+.boss-segment {
+	display:flex;
+  	flex-wrap: nowrap;
+}
+
+.collapse-expand {
+	width: .7em;
+	height: .7em;
+	background-color: LightGrey;
+	
+	border: 1px solid black;
+	margin: 0em .1em 0em;
+}
+
+.name-row {
+	display: flex; 
+	flex-direction: row;
+	align-items: center;
+}
+
+.member-name {
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}

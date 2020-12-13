@@ -1,0 +1,66 @@
+
+.provisions-table {
+	border-collapse: collapse;
+	table-layout: fixed;
+	display: block;
+	overflow-y: scroll;
+}
+
+.header-table {
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.header-table li {
+	color:white;
+	background-color: black;
+	border-color: white;
+}
+
+/*
+.provisions-table .col1 {
+	width: 20%; 
+	flex-grow: 4;
+}    
+  
+.provisions-table .col2 {
+	width: 5%; 
+	flex-grow: 1;
+}    
+
+.provisions-table .col3 {
+	width: 75%;
+	flex-grow: 15;
+
+}    
+*/
+
+.provisions-table th, .provisions-table td  {
+	text-align:center;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+ul {
+	margin: 0px 0px 0px 0px;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+li {
+	margin-top: 0px;
+	width: 100%;
+    display: table-cell;
+    text-align: center;
+    border: 1px solid black;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+li.scroll {
+	width: 16px;
+	border: 0px;
+	background-color:rgba(0, 0, 0, 0);
+}

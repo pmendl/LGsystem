@@ -1,0 +1,42 @@
+     .super-outer-box {
+/*      	height: 95vh;
+      	max-height: 100vh;*/
+        display: flex;
+		flex-direction:column;
+      }
+      
+      
+      .header-footer {
+        display: flex;
+		justify-content: space-around;
+		color: White;
+        background-color: DodgerBlue;
+        font-size: 0.8em;
+        padding: 2px;
+        margin: 5px 0px;
+      }
+
+      .header-footer > a {
+		color:white;
+      }
+      
+      .main-box {
+      	display: flex;
+      	flex-direction: column;
+      	justify-content: center;
+      	text-align:center;
+      	border: 1px solid black;
+/*      	flex-growth:1;*/ 
+      	max-height: 70vh;
+      }
+      
+	  .to-be-centred {
+	  	text-align: center;
+	  }
+
+		.system-report {
+			color: DarkGray;
+			margin: 15px auto;
+			text-align:center;
+       
+		}
