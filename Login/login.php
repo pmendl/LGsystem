@@ -1,24 +1,6 @@
 <?php
 session_start();
-
-require("../Tools/database.php");
-
-
 /*	echo "<div class=\"system-report\">ACTION=${_POST['action']}<div>"; */
-
-if($_POST["action"] == "LOGIN") {
-	Database::DbOpen();
-/*	echo "</br>";
-	if (is_object(Database::$conn)) {
-		echo "1: IS OBJECT</br>";			
-//				echo Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS) . "???";
-//				echo Database::DB_USER;
-	} else {
-				echo "1: NOT OBJECT</br> ";
-	}
-	echo "NOW ";
- */
-}
 	
 if($_POST["action"] == "CLEAR") {
 	unset($_SESSION["user_id"]);
@@ -51,53 +33,58 @@ if($_POST["action"] == "CLEAR") {
 		<div class="main-box">
 		
 		<?php
-		
-		if (isset(Database::$error_message)) {
-			$error_message = $servername . ":" . $port . "&emsp;" . Database::$error_message;
-		} else {
+
+		if($_POST["action"] == "LOGIN") {
+			require("../Tools/database.php");
 			echo '<div class="system-report">';
-			if (is_object(Database::$conn)) {
+			Database::DbOpen();
 				
-//				echo Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS) . "???";
-//				echo Database::DB_USER;
+			if (isset(Database::$error_message)) {
+				$error_message = $servername . ":" . $port . "&emsp;" . Database::$error_message;
 			} else {
-				echo "NOT OBJECT ";
-			}
-			print_r($_POST);
-			echo "</br>";
-			if(Database::$conn == FALSE) {
-				echo "DB FAILED! ";
-			} else {
-				$driver_name =Database::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
-		    	$conn_stat =Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-				echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
-				
-				
-				$select = Database::$conn->prepare("SELECT id, password_hash FROM user WHERE username = ?");
-			} 
-//			echo "<div>TEST3</div>";
-			if (!$select->execute(array($_POST["username"]))) {
-				$error_message = "Selhal dotaz SELECT na uživatele.";
-				echo  $error_message; 
-			} else {
-				$result=$select->fetch(PDO::FETCH_ASSOC);
-//				echo $result;
-				if (!$result) {
-					echo "Zadaný uživatel nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.";
+				if (is_object(Database::$conn)) {
+					
+	//				echo Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS) . "???";
+	//				echo Database::DB_USER;
 				} else {
-//					echo '<div class="system-report">';
-					print_r($result);
-//					echo  "</br>---</br>"."TEST </div>";
-					if($result[password_hash]) {
-//						echo "TODO: verify password";
-					} else {
-						$password_change="new";
-//						echo <<<EOT
-//						TODO: set new password
-//EOT; 
-					}
+					echo "NOT OBJECT ";
 				}
-				
+				print_r($_POST);
+				echo "</br>";
+				if(Database::$conn == FALSE) {
+					echo "DB FAILED! ";
+				} else {
+					$driver_name =Database::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
+			    	$conn_stat =Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+					echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
+					
+					
+					$select = Database::$conn->prepare("SELECT id, password_hash FROM user WHERE username = ?");
+				} 
+	//			echo "<div>TEST3</div>";
+				if (!$select->execute(array($_POST["username"]))) {
+					$error_message = "Selhal dotaz SELECT na uživatele.";
+					echo  $error_message; 
+				} else {
+					$result=$select->fetch(PDO::FETCH_ASSOC);
+	//				echo $result;
+					if (!$result) {
+						echo "Zadaný uživatel nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.";
+					} else {
+	//					echo '<div class="system-report">';
+						print_r($result);
+	//					echo  "</br>---</br>"."TEST </div>";
+						if($result[password_hash]) {
+	//						echo "TODO: verify password";
+						} else {
+							$password_change="new";
+	//						echo <<<EOT
+	//						TODO: set new password
+	//EOT; 
+						}
+					}
+					
+				}
 			}
 			echo '</div>';
 		}

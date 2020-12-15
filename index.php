@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	date_default_timezone_set('Europe/Prague');
+//	date_default_timezone_set('Europe/Prague');
 ?>
 
 <!DOCTYPE html>
@@ -13,14 +13,7 @@
 
 		<link rel="stylesheet" type="text/css" href="/CSS/page_layout.css">
 		<link rel="stylesheet" type="text/css" href="/CSS/login.css">
-		<style>
 	
-	  .main-box div {
-		padding: 10px;      	
-	  }
-	  
-		</style>
-		
 	</head>
 <body>
 

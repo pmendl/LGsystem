@@ -17,10 +17,11 @@ class Database
 
 		    // set the PDO error mode to exception
 		    self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-/*	    	$driver_name = self::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
+/*			
+	    	$driver_name = self::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
 		    $conn_stat = self::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-			echo "Connected successfully: $driver_name at $conn_stat";
- */
+			echo "Database: Connected successfully: $driver_name at $conn_stat</br>";
+*/
 		}
 		catch(PDOException $e) {
 			self::$error_message = $e->getMessage();

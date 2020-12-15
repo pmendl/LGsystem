@@ -28,6 +28,8 @@
       	border: 1px solid black;
 /*      	flex-growth:1;*/ 
       	max-height: 70vh;
+		padding: 10px;      	
+
       }
       
 	  .to-be-centred {
