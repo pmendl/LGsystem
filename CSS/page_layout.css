@@ -9,7 +9,7 @@
       .header-footer {
         display: flex;
 		justify-content: space-around;
-		color: White;
+		color: white;
         background-color: DodgerBlue;
         font-size: 0.8em;
         padding: 2px;
