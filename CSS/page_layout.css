@@ -21,6 +21,7 @@
       }
       
       .main-box {
+      	color:black;
       	display: flex;
       	flex-direction: column;
       	justify-content: center;
@@ -29,7 +30,19 @@
 /*      	flex-growth:1;*/ 
       	max-height: 70vh;
 		padding: 10px;      	
+      }
 
+      .main-warning {
+      	color:black;
+      	background-color: yellow;
+      	display: flex;
+      	flex-direction: column;
+      	justify-content: center;
+      	text-align:center;
+      	border: 1px solid black;
+/*      	flex-growth:1;*/ 
+      	max-height: 70vh;
+		padding: 10px;      	
       }
       
 	  .to-be-centred {

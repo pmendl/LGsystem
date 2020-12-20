@@ -49,43 +49,43 @@ if($_POST["action"] == "CLEAR") {
 				echo "</br>";
 				if(!Database::$conn) {
 					echo "DB FAILED! Database::\$conn </br>";
-					$error_message = "login.php: Database::\$conn is not object ";
+					$error_message = "login.php: Database::\$conn open failed ";
 				} else {
 					$driver_name =Database::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
 			    	$conn_stat =Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 					echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
 					
 					
-					$select = Database::$conn->prepare("SELECT id, password_hash FROM user WHERE username = ?");
+					$select = Database::$conn->prepare('SELECT id, password_hash FROM user WHERE username = ?');
 
 //					echo "<div>TEST3</div>";
 //					echo  "\$error_message = $error_message";
 				
 					if (!$select->execute(array($_POST["username"]))) {
-						$error_message = "Selhal dotaz SELECT na uživatele.";
+						$error_message = "Selhal dotaz SELECT na uživatele " . $_POST['username'] . " ";
 					} else {
 						$result=$select->fetch(PDO::FETCH_ASSOC);
-//						echo $result;
+//						echo "</div>";
 						if (!$result) {
-							echo "Zadaný uživatel nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.";
+							echo "</br></div><div class=\"main-warning\">Uživatel ". $_POST['username'] . " nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.</div>";
 						} else {
-//							echo '<div class="system-report">';
+							echo '<div class="system-report">';
 							print_r($result);
-//							echo  "</br>---</br>"."TEST </div>";
+							echo  "</br></br></div><div class=\"main-box\">";
 							if($result[password_hash]) {
 //								echo "TODO: verify password";
 							} else {
 								$password_change="new";
-//								echo <<<EOT
 //								TODO: set new password
+
 //EOT; 
 							}
+//							echo "</div>";
 						}
-						
+												
 					}
 				}
 			}
-			echo '</div>';
 		}
 		
 		if (isset($error_message)) {
@@ -99,22 +99,25 @@ if($_POST["action"] == "CLEAR") {
 				<form action="/Login/password_change.php" method="post">  
 					<div class="login-rows">
 						<table>
+
 EOT;
-				if ($password_change == "new") {
+//				if ($password_change == "new") {
 					echo <<<EOT
-								<tr><td>Pro první přihlášení si, prosím, zvolte heslo, které budete nadále používat.<td/><tr/>
-								<input type="hidden" name="old_password" value=""/>
+								<tr><td colspan="2">Pro první přihlášení si, prosím, zvolte heslo, které budete nadále používat.<td/><tr/>
+								<tr><td><input type="hidden" name="old_password" value=""/><td/><tr/>
+
 EOT;
-				} else {				
+//				} else {				
 					echo <<<EOT
 								<tr><td>Zvolte nové heslo:<td/><tr/>
 								<tr><td><label for="old_password">Původní heslo:</label></td></tr>
 								<tr><td><input type="password" name="old_password" /></td></tr>
+
 EOT;
-				}
+//				}
 					echo <<<EOT
 								<tr><td><label for="password1">Nové heslo:</label></td></tr>
-								<tr><td><input type="password" id="password1" name="password1" oninput="myUpdate(event)" /></td><td><span id="passNotNull" class="unmet-login-condition">Nesmí být prázdné</td></span></tr>
+								<tr><td><input type="password" id="password1" name="password1" oninput="myUpdate(event)" /></td><td><span id="passNotNull" class="unmet-login-condition">Nesmí být prázdné</span></td></tr>
 								<tr><td><label for="password2">Znovu pro potvrzení:</label></td></tr>
 								<tr><td><input type="password" id="password2" name="password2" oninput="myUpdate(event)" /></td><td><span id="passEqual" class="unmet-login-condition">Musí se shodovat</span></td></tr>
 								<tr><td><button id="password_send" type="submit" disabled />Odeslat</button><button type="button" onclick="reloadIndex()">Zrušit</button></td><td></td></tr>
@@ -126,7 +129,7 @@ EOT;
 			} else {
 				echo '<button type="button" onclick="reloadIndex()">OK</button>';
 			}
-			
+			echo "</div>";
 				
 			?>
 		</div>		
