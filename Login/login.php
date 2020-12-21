@@ -61,7 +61,7 @@ if($_POST["action"] == "CLEAR") {
 //					echo "<div>TEST3</div>";
 //					echo  "\$error_message = $error_message";
 				
-					if (!$select->execute(array($_POST["username"]))) {
+					if (!$select->execute(array($_POST['username']))) {
 						$error_message = "Selhal dotaz SELECT na uživatele " . $_POST['username'] . " ";
 					} else {
 						$result=$select->fetch(PDO::FETCH_ASSOC);
@@ -72,16 +72,19 @@ if($_POST["action"] == "CLEAR") {
 							echo '<div class="system-report">';
 							print_r($result);
 							echo  "</br></br></div><div class=\"main-box\">";
-							if($result[password_hash]) {
-//								echo "TODO: verify password";
-							} else {
+							if(strpos($result['password_hash'], '$$')=== 0) {
 								$password_change="new";
-//								TODO: set new password
-
+								if(strlen($result['password_hash'])==2)
+								{
+									// TODO: $hash= default password 
+								} else {
+									$hash=substr($result['password_hash'],2);
+								}
+//								echo "TODO: verify password and eventually rehash";
 //EOT; 
 							}
-//							echo "</div>";
 						}
+							//							echo "</div>";
 												
 					}
 				}
