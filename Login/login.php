@@ -138,11 +138,11 @@ EOT;
 			} else {
 				echo '<button type="button" onclick="reloadIndex()">OK</button>';
 			}
-			echo "</div>";
-				
+			echo "</div></div>";
+
+			include "../Tools/footer.html";
 			?>
-		</div>		
-		<script language="javascript" type="text/javascript" src="/Tools/footer.js"></script>
+		
 		<script>
 			function reloadIndex() { window.location.assign("/"); }
 			function myUpdate(event) {

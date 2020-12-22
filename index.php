@@ -56,8 +56,10 @@
 		?>
 		</form>
 	</div>
+	<?php
+		include "Tools/footer.html";
+	?>
 
-	<script language="javascript" type="text/javascript" src="/Tools/footer.js"></script>
 
 </div>
 
