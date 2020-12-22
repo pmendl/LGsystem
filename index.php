@@ -16,7 +16,7 @@
 <body>
 
 <div class="super-outer-box">
-	<div class="header-footer">
+	<div class="header">
 		LUCKY GO System
 	</div>
 	

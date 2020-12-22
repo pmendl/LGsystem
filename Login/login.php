@@ -31,7 +31,7 @@ if($_POST["action"] == "CLEAR") {
       
 	</head>
 	<body> 
-		<div class="header-footer">
+		<div class="header">
 			LUCKY GO System - Přihlášení uživatele
 		</div>
 		
