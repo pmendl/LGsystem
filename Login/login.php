@@ -36,95 +36,82 @@ if($_POST["action"] == "CLEAR") {
 		</div>
 		
 		<div class="main-box">
+			<div class="system-report">
 		
 		<?php
 
+		print_r($_POST);
 		if($_POST["action"] == "LOGIN") {
 			require("../Tools/database.php");
-			echo '<div class="system-report">';
-			Database::DbOpen();
-				
-			if (isset(Database::$error_message)) {
-				$error_message = $servername . ":" . $port . "&emsp;" . Database::$error_message;
-			} else {
-				if (!is_object(Database::$conn)) {
-					echo "NOT OBJECT Database::\$conn </br>";
-					$error_message = "login.php: Database::\$conn is not object ";
-				}
-				print_r($_POST);
-				echo "</br>";
-				if(!Database::$conn) {
-					echo "DB FAILED! Database::\$conn </br>";
-					$error_message = "login.php: Database::\$conn open failed ";
-				} else {
-					$driver_name =Database::$conn->getAttribute(PDO::ATTR_DRIVER_NAME);
-			    	$conn_stat =Database::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-					echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
-					
-					
-					$select = Database::$conn->prepare('SELECT id, password_hash FROM user WHERE username = ?');
+//			echo '<div class="system-report">';
 
-//					echo "<div>TEST3</div>";
-//					echo  "\$error_message = $error_message";
-				
-					if (!$select->execute(array($_POST['username']))) {
-						$error_message = "Selhal dotaz SELECT na uživatele " . $_POST['username'] . " ";
+			$db=new Database("database.ini",true);
+			if (!is_object($db->conn)) {
+				throw new Exception("Database connection is not an object", 1001);
+			}
+			if(!$db->conn) {
+				throw new Exception("Database connection open failed", 1002);
+			}
+
+			$driver_name =$db->conn->getAttribute(PDO::ATTR_DRIVER_NAME);
+	    	$conn_stat =$db->conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+			echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
+			
+			$select = $db->conn->prepare('SELECT id, password_hash FROM user WHERE username = ?');
+			if (!$select->execute(array($_POST['username']))) {
+				throw new Exception("Selhal dotaz SELECT na uživatele " . $_POST['username'], 1003);
+			}
+
+			$result=$select->fetch(PDO::FETCH_ASSOC);
+			if (!$result) {
+				echo "</br></div><div class=\"main-warning\">Uživatel ". $_POST['username'] . " nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.</div>";
+			} else {
+				echo '<div class="system-report">';
+				print_r($result);
+				echo  "</br></br>";
+				$password_change="new";
+				if(strpos($result['password_hash'], '$$')=== 0) {
+					if(strlen($result['password_hash'])==2)
+					{
+						// TODO: $hash= default password 
 					} else {
-						$result=$select->fetch(PDO::FETCH_ASSOC);
-//						echo "</div>";
-						if (!$result) {
-							echo "</br></div><div class=\"main-warning\">Uživatel ". $_POST['username'] . " nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.</div>";
-						} else {
-							echo '<div class="system-report">';
-							print_r($result);
-							echo  "</br></br></div><div class=\"main-box\">";
-							$password_change="new";
-							if(strpos($result['password_hash'], '$$')=== 0) {
-								if(strlen($result['password_hash'])==2)
-								{
-									// TODO: $hash= default password 
-								} else {
-									$hash=substr($result['password_hash'],2);
-								}
+						$hash=substr($result['password_hash'],2);
+					}
 //								echo "TODO: verify password and eventually rehash";
 //EOT; 
-							}
-						}
-							//							echo "</div>";
-												
-					}
 				}
+				echo "</div>";
 			}
+			echo "</div>";
+										
+////
+////
+////			
 		}
 		
-		if (isset($error_message)) {
-			echo "<div><p> Došlo k interní chybě systému. Prosím informujte správce systému  
-			na telefonu 602 645 347 a sdělte mu následující chybu:</p>"; 
-			echo '<p style="background:yellow">' . $error_message . "</p></div>";
-		} else {
 		
-			if ($password_change) {
-				echo <<<EOT
+		if ($password_change) {
+			echo <<<EOT
 				<form action="/Login/password_change.php" method="post">  
 					<div class="login-rows">
 						<table>
 
 EOT;
 //				if ($password_change == "new") {
-					echo <<<EOT
+				echo <<<EOT
 								<tr><td colspan="2">Pro první přihlášení si, prosím, zvolte heslo, které budete nadále používat.<td/><tr/>
 								<tr><td><input type="hidden" name="old_password" value=""/><td/><tr/>
 
 EOT;
 //				} else {				
-					echo <<<EOT
+				echo <<<EOT
 								<tr><td>Zvolte nové heslo:<td/><tr/>
 								<tr><td><label for="old_password">Původní heslo:</label></td></tr>
 								<tr><td><input type="password" name="old_password" /></td></tr>
 
 EOT;
 //				}
-					echo <<<EOT
+				echo <<<EOT
 								<tr><td><label for="password1">Nové heslo:</label></td></tr>
 								<tr><td><input type="password" id="password1" name="password1" oninput="myUpdate(event)" /></td><td><span id="passNotNull" class="unmet-login-condition">Nesmí být prázdné</span></td></tr>
 								<tr><td><label for="password2">Znovu pro potvrzení:</label></td></tr>
@@ -135,14 +122,14 @@ EOT;
 					
 					
 EOT;
-			} else {
-				echo '<button type="button" onclick="reloadIndex()">OK</button>';
-			}
-			echo "</div></div>";
+		} else {
+			echo '<button type="button" onclick="reloadIndex()">OK</button>';
+		}
+		echo "</div></div>";
 
-			include "../Tools/footer.html";
-			?>
-		
+		include "../Tools/footer.html";
+		?>
+	
 		<script>
 			function reloadIndex() { window.location.assign("/"); }
 			function myUpdate(event) {
@@ -165,7 +152,6 @@ EOT;
 			}
 		</script>
 	</body>
-		<?php } ?>
 </html>
 
 <?php
