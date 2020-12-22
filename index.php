@@ -1,7 +1,5 @@
 <?php
 	session_start();
-
-//	date_default_timezone_set('Europe/Prague');
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +16,7 @@
 <body>
 
 <div class="super-outer-box">
-	<div class="header-footer">
+	<div class="header">
 		LUCKY GO System
 	</div>
 	
@@ -58,8 +56,10 @@
 		?>
 		</form>
 	</div>
+	<?php
+		include "Tools/footer.html";
+	?>
 
-	<script language="javascript" type="text/javascript" src="/Tools/footer.js"></script>
 
 </div>
 

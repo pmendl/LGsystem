@@ -13,7 +13,7 @@
 		flex-direction:column;
       }
       
-      .header-footer {
+      .header, .footer {
         display: flex;
 		justify-content: space-around;
 		color: White;
@@ -23,7 +23,7 @@
         margin: 5px 0px;
       }
 
-      .header-footer > a {
+      .header > a, .footer > a {
 		color:white;
       }
       
@@ -64,7 +64,7 @@
 <?php
 echo "CURRENT DIRECTORY: " . getcwd() . "&emsp;&emsp;&emsp;CURRENT URL: " . $_SERVER['REQUEST_URI'] . "&emsp;&emsp;&emsp;DIR: " . __DIR__ . "<br/>";     
 
-echo '<div class="header-footer">';
+echo '<div class="header">';
 date_default_timezone_set('Europe/Prague');
 $servername ="";
 $port = "";
@@ -103,7 +103,7 @@ catch(PDOException $e) {
 	</div>
 </div>
 
-<div  class="header-footer">
+<div  class="footer">
    <a title="PHP manual" href="https://www.php.net/manual/en/">PHP manual</a>
    <a title="Details about Laragon" href="laragon.php">Details about Laragon</a>
 </div>

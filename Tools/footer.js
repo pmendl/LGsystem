@@ -1,1 +1,0 @@
-	document.write('<div  class="header-footer"> <a title="PHP manual" href="https://www.php.net/manual/en/">PHP manual</a> <a title="Details about Laragon" href="laragon.php">Details about Laragon</a> </div>')
