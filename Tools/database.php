@@ -6,7 +6,6 @@ class Database
 
 	static public function DbOpen() {
 
-		try {
 			// Parse with sections
 			$ini_array = parse_ini_file("database.ini",true);
 
@@ -22,12 +21,6 @@ class Database
 		    $conn_stat = self::$conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 			echo "Database: Connected successfully: $driver_name at $conn_stat</br>";
 */
-		}
-		catch(PDOException $e) {
-			self::$error_message = $e->getMessage();
-			echo "DB ERROR";
-		}
-		
 		return $conn;
 	}
 }

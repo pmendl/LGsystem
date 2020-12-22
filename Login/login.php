@@ -1,6 +1,12 @@
 <?php
+// --- PREAMBLE CODE ---
 session_start();
-	
+ob_start();
+try {
+// --- PAGE CODE START ---
+?>
+
+<?php
 if($_POST["action"] == "CLEAR") {
 	unset($_SESSION["user_id"]);
 }
@@ -72,8 +78,8 @@ if($_POST["action"] == "CLEAR") {
 							echo '<div class="system-report">';
 							print_r($result);
 							echo  "</br></br></div><div class=\"main-box\">";
+							$password_change="new";
 							if(strpos($result['password_hash'], '$$')=== 0) {
-								$password_change="new";
 								if(strlen($result['password_hash'])==2)
 								{
 									// TODO: $hash= default password 
@@ -158,6 +164,15 @@ EOT;
 				}
 			}
 		</script>
-		<?php } ?>
 	</body>
-</html>	
+		<?php } ?>
+</html>
+
+<?php
+// --- PAGE CODE END ---
+	ob_end_flush();
+} catch (Exception $e) {
+	ob_end_clean();
+	include $_SERVER[DOCUMENT_ROOT] . "/Tools/exception_report.php";
+}
+?>	
