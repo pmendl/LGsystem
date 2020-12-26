@@ -4,20 +4,28 @@ session_start();
 ob_start();
 try {
 // --- PAGE CODE START ---
-?>
 
+/*echo <<<EOT
 <!DOCTYPE html>
 <html>
    	<head>
-      <meta charset="UTF-8">
-      
-      <title>Lucky Goo internal system</title>
-
 		<link rel="stylesheet" type="text/css" href="/CSS/page_layout.css">
 		<link rel="stylesheet" type="text/css" href="/CSS/login.css">
-	
+
+      <meta charset="UTF-8">
+      <title>Lucky Goo internal system A</title>
 	</head>
 <body>
+EOT;*/
+//echo $_SERVER[DOCUMENT_ROOT];
+	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+//	echo "Point A";
+	$h = new Header;
+	$h->addCss(["page_layout","login"]);
+	$h->setTitle("New Test");
+	unset($h);
+?>
+
 
 <div class="super-outer-box">
 	<div class="header">
