@@ -16,7 +16,7 @@ class Database
 			$db_params = $ini_array;
 		}
 		var_dump($db_params);
-		echo("</br>");
+		echo("<br/>");
 	
 		// Create connection from parsed data
 	    $this->conn = new PDO("mysql:host=".$db_params['DB_SERVER'].
@@ -31,7 +31,7 @@ class Database
 /*		CODE FOR DEBUG PURPOSES		
 		$driver_name = $this->conn->getAttribute(PDO::ATTR_DRIVER_NAME);
 	    $conn_stat = $this->conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-		echo "Database: Connected successfully: $driver_name at $conn_stat</br>";
+		echo "Database: Connected successfully: $driver_name at $conn_stat<br/>";
 */
 	}
 }

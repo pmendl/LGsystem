@@ -2,11 +2,6 @@
 
 class Header
 {
-	
-	/*
-	  <meta charset="UTF-8">
-      <title>Lucky Goo internal system</title>
-	 */
 	 
 	public $title = "Lucky Goo internal system";
 	public $charset = "UTF-8";
@@ -45,6 +40,10 @@ class Header
    	<head>
 
 EOT;
+	
+	$this->addCss("page_layout");
+	$this->addCss(preg_replace(['/\..*$/','/^.*\//'], '', debug_backtrace(1)[0]['file']));
+	echo "<!-- HEADER CONSTRUCTOR END -->\n";
 	}
 	
 	function __destruct()
@@ -55,7 +54,10 @@ EOT;
   		<title>$this->title</title>
 	</head>
 	<body>
+	
+<div class="super-outer-box">
 EOT;
+	echo "\n<!-- HEADER DESTRUCTOR END -->";
 
 	}
 	

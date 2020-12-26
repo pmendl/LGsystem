@@ -4,6 +4,11 @@ session_start();
 ob_start();
 try {
 // --- PAGE CODE START ---
+	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+	$h = new Header;
+	$h->addCss("login");
+	unset($h);
+
 ?>
 
 <?php
@@ -12,7 +17,7 @@ if($_POST["action"] == "CLEAR") {
 }
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
    	<head>
     	<meta charset="UTF-8">
@@ -30,7 +35,7 @@ if($_POST["action"] == "CLEAR") {
   		</style>
       
 	</head>
-	<body> 
+	<body> --> 
 		<div class="header">
 			LUCKY GO System - Přihlášení uživatele
 		</div>
@@ -55,7 +60,7 @@ if($_POST["action"] == "CLEAR") {
 
 			$driver_name =$db->conn->getAttribute(PDO::ATTR_DRIVER_NAME);
 	    	$conn_stat =$db->conn->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-			echo "Connected successfully: $driver_name at " . $conn_stat . "</br>";
+			echo "Connected successfully: $driver_name at " . $conn_stat . "<br/>";
 			
 			$select = $db->conn->prepare('SELECT id, password_hash FROM user WHERE username = ?');
 			if (!$select->execute(array($_POST['username']))) {
@@ -64,11 +69,11 @@ if($_POST["action"] == "CLEAR") {
 
 			$result=$select->fetch(PDO::FETCH_ASSOC);
 			if (!$result) {
-				echo "</br></div><div class=\"main-warning\">Uživatel ". $_POST['username'] . " nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.</div>";
+				echo "<br/></div><div class=\"main-warning\">Uživatel ". $_POST['username'] . " nemá oprávnění užívat tento systém. Prosím, zkontrolujte své přihlašovací údaje.</div>";
 			} else {
 				echo '<div class="system-report">';
 				print_r($result);
-				echo  "</br></br>";
+				echo  "<br/><br/>";
 				$password_change="new";
 				if(strpos($result['password_hash'], '$$')=== 0) {
 					if(strlen($result['password_hash'])==2)
@@ -80,9 +85,9 @@ if($_POST["action"] == "CLEAR") {
 //								echo "TODO: verify password and eventually rehash";
 //EOT; 
 				}
-				echo "</div>";
+				echo "</div>\n";
 			}
-			echo "</div>";
+//			echo "</div>";
 										
 ////
 ////
@@ -119,13 +124,13 @@ EOT;
 								<tr><td><button id="password_send" type="submit" disabled />Odeslat</button><button type="button" onclick="reloadIndex()">Zrušit</button></td><td></td></tr>
 						</table>
 					</div>
-					
-					
+				</form>
+			
 EOT;
 		} else {
 			echo '<button type="button" onclick="reloadIndex()">OK</button>';
 		}
-		echo "</div></div>";
+		echo "</div></div>\n";
 
 		include "../Tools/footer.html";
 		?>
