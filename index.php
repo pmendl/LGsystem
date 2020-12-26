@@ -3,28 +3,13 @@
 session_start();
 ob_start();
 try {
-// --- PAGE CODE START ---
-
-/*echo <<<EOT
-<!DOCTYPE html>
-<html>
-   	<head>
-		<link rel="stylesheet" type="text/css" href="/CSS/page_layout.css">
-		<link rel="stylesheet" type="text/css" href="/CSS/login.css">
-
-      <meta charset="UTF-8">
-      <title>Lucky Goo internal system A</title>
-	</head>
-<body>
-EOT;*/
-//echo $_SERVER[DOCUMENT_ROOT];
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;
 	$h->addCss("login");
 	unset($h);
+// --- PAGE CODE START ---
 ?>
 
-<!-- <div class="super-outer-box"> -->
 	<div class="header">
 		LUCKY GO System
 	</div>
@@ -64,17 +49,14 @@ EOT;*/
 ?>
 		</form>
 	</div>
-<!-- </div> -->
 <?php
-	include "Tools/footer.html";
 // --- PAGE CODE END ---
+	include "Tools/footer.html";
 	ob_end_flush();
 } catch (Exception $e) {
 	ob_end_clean();
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/exception_report.php";
 }
-?>		
-	</body>
-</html> 
+?>
 
 

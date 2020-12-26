@@ -3,12 +3,10 @@
 session_start();
 ob_start();
 try {
-// --- PAGE CODE START ---
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;
-	$h->addCss("login");
 	unset($h);
-
+// --- PAGE CODE START ---
 ?>
 
 <?php
@@ -17,25 +15,6 @@ if($_POST["action"] == "CLEAR") {
 }
 ?>
 
-<!-- <!DOCTYPE html>
-<html>
-   	<head>
-    	<meta charset="UTF-8">
-      
-      	<title>Lucky Goo internal system</title>
-
-  		<link rel="stylesheet" type="text/css" href="/CSS/page_layout.css">
-  		<link rel="stylesheet" type="text/css" href="/CSS/login.css">
-		<style>
-		
-			button {
-				margin: 15px auto;
-			}
-
-  		</style>
-      
-	</head>
-	<body> --> 
 		<div class="header">
 			LUCKY GO System - Přihlášení uživatele
 		</div>
@@ -48,7 +27,6 @@ if($_POST["action"] == "CLEAR") {
 		print_r($_POST);
 		if($_POST["action"] == "LOGIN") {
 			require("../Tools/database.php");
-//			echo '<div class="system-report">';
 
 			$db=new Database("database.ini",true);
 			if (!is_object($db->conn)) {
@@ -83,15 +61,9 @@ if($_POST["action"] == "CLEAR") {
 						$hash=substr($result['password_hash'],2);
 					}
 //								echo "TODO: verify password and eventually rehash";
-//EOT; 
 				}
 				echo "</div>\n";
 			}
-//			echo "</div>";
-										
-////
-////
-////			
 		}
 		
 		
@@ -131,10 +103,7 @@ EOT;
 			echo '<button type="button" onclick="reloadIndex()">OK</button>';
 		}
 		echo "</div></div>\n";
-
-		include "../Tools/footer.html";
 		?>
-	
 		<script>
 			function reloadIndex() { window.location.assign("/"); }
 			function myUpdate(event) {
@@ -156,11 +125,9 @@ EOT;
 				}
 			}
 		</script>
-	</body>
-</html>
-
 <?php
 // --- PAGE CODE END ---
+	include "../Tools/footer.html";
 	ob_end_flush();
 } catch (Exception $e) {
 	ob_end_clean();
