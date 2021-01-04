@@ -9,11 +9,6 @@ try {
 	unset($h);
 // --- PAGE CODE START ---
 ?>
-
-	<div class="header">
-		LUCKY GO System
-	</div>
-	
 	<div class="system-report">
 		<?php
 			echo "Include path = " . get_include_path();

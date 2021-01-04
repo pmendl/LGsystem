@@ -5,6 +5,7 @@ ob_start();
 try {
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;
+	$h->setSubtitle("Přihlášení uživatele");
 	unset($h);
 // --- PAGE CODE START ---
 ?>
@@ -14,11 +15,6 @@ if($_POST["action"] == "CLEAR") {
 	unset($_SESSION["user_id"]);
 }
 ?>
-
-		<div class="header">
-			LUCKY GO System - Přihlášení uživatele
-		</div>
-		
 		<div class="main-box">
 			<div class="system-report">
 		

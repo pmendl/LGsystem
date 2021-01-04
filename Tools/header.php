@@ -3,8 +3,9 @@
 class Header
 {
 	 
-	public $title = "Lucky Goo internal system";
+	public $title = "LUCKY GO system";
 	public $charset = "UTF-8";
+	public $subtitle = ''; 
 	
 	function addCss($s)
 	{
@@ -20,9 +21,15 @@ class Header
 		}
 		
 	}
+	
 	function setTitle(string $s)
 	{
 		$this->title = $s;
+	}
+	
+	function setSubtitle(string $s)
+	{
+		$this->subtitle = $s;
 	}
 	
 	function setCharset(string $s)
@@ -45,14 +52,20 @@ EOT;
 	
 	function __destruct()
 	{
+		$page_title = $this->title;
+		if($this->subtitle != '') {
+			$page_title .= " - $this->subtitle";
+		}
 		echo <<<EOT
-		
 		<meta charset=$this->charset>
   		<title>$this->title</title>
 	</head>
 	<body>
 	
 <div class="super-outer-box">
+	<div class="header">
+		$page_title
+	</div>
 EOT;
 	}
 	
