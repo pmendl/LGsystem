@@ -8,6 +8,7 @@ try {
 	$h->setSubtitle("Přihlášení uživatele");
 	unset($h);
 // --- PAGE CODE START ---
+//	print_r($_POST);
 ?>
 	<div class="main-box">
 		<div class="system-report">
@@ -18,9 +19,11 @@ try {
 		case 'CLEAR':
 			unset($_SESSION["user_id"]);
 		case 'LOGIN':
+			echo "Point 1<br/>";
 			print_r($_POST);
-			require("../Tools/database.php");
-
+			echo __DIR__;
+			require(__DIR__ . "/../Tools/database.php");
+			echo "Point 2<br/>";
 			$db=new Database("database.ini",true);
 			if (!is_object($db->conn)) {
 				throw new Exception("Database connection is not an object", 1001);
@@ -98,7 +101,8 @@ EOT;
 //			echo '<button type="button" onclick="reloadIndex()">OK</button>';
 ?>
 <div class="main-box">
-		<form action="/Login/login.php" method="post">
+		<!-- <form action="/Login/login.php" method="post"> -->
+		<form action="/index.php" method="post">
 <?php
 			if(array_key_exists("user_id", $_SESSION)) { ?>
 				SESSION_USER_ID = <?php echo $_SESSION["user_id"]; ?><br/><br/>
@@ -120,6 +124,7 @@ EOT;
 				</div>
 				<div class="to-be-centred">
 					<button type="submit" name="action" value="LOGIN">Přihlášení</button>
+					<button type="submit" name="action" value="test">Test</button>
 				</div>
 <?php
 			}
