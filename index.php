@@ -1,6 +1,7 @@
 <?php
 // --- PREAMBLE CODE ---
-session_start();
+/*
+ 	session_start();
 ob_start();
 try {
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
@@ -11,7 +12,9 @@ try {
 ?>
 	<div class="system-report">
 		<?php
-			echo "Include path = " . get_include_path();
+			print_r($_POST);
+			echo "<br/>>>" . $_POST['action']. "<<";
+			echo "<br/>Include path = " . get_include_path();
 		?>
 	</div>
  
@@ -52,6 +55,16 @@ try {
 	ob_end_clean();
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/exception_report.php";
 }
+ * 
+ */
+ switch ($_POST['action']) {
+ 	case 'test':
+ 		echo "TEST ONLY";
+		break;
+		
+	default:
+		include "Login/login.php";
+ }
 ?>
 
 
