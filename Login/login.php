@@ -15,9 +15,11 @@ try {
 
 <?php
 
+	print_r($_POST);
 	switch ($_POST['action']) {
 		case 'CLEAR':
 			unset($_SESSION["user_id"]);
+			echo "CLEAR done !!!<br/>";
 		case 'LOGIN':
 			echo "Point 1<br/>";
 			print_r($_POST);
@@ -97,7 +99,7 @@ EOT;
 			break;
 			
 			
-		default:
+		case 'INITIAL':
 //			echo '<button type="button" onclick="reloadIndex()">OK</button>';
 ?>
 <div class="main-box">
@@ -131,9 +133,11 @@ EOT;
 ?>
 		</form>
 	</div>
-		}
-		echo "</div></div>\n";
-		?>
+<?php	
+		break;
+		
+	echo "</div></div>\n";
+?>
 		<script>
 			function reloadIndex() { window.location.assign("/"); }
 			function myUpdate(event) {

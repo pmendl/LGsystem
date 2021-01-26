@@ -63,6 +63,7 @@ try {
 		break;
 		
 	default:
+		$_POST['action'] = "INITIAL";
 		include "Login/login.php";
  }
 ?>
