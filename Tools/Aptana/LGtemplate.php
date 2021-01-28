@@ -1,11 +1,12 @@
 <?php
 // --- PREAMBLE CODE ---
 try {
-	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+	require $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;
 	// eventual parameters for header goes here 
 	unset($h);
-// --- PAGE CODE START ---
+	require $_SERVER[DOCUMENT_ROOT] . "/Crypto/anti_csrf.php"
+	// --- PAGE CODE START ---
 ?>
 
 

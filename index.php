@@ -1,7 +1,16 @@
 <?php
  switch ($_POST['action']) {
  	case 'test':
- 		echo "TEST ONLY";
+ 			require $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+		$h = new Header;
+		require $_SERVER[DOCUMENT_ROOT] . "/Crypto/anti_csrf.php";
+ 		echo "TEST ONLY<br/>$_POST[password] -> ";
+		if(AntiCsrf::checkToken($_POST['password'])) {
+			echo "O.K.<br/>";
+		} else {
+			echo "FAILED<br/>";
+		}
+		
 		break;
 		
 	case 'LOGIN':		

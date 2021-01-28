@@ -1,10 +1,12 @@
 <?php
 // --- PREAMBLE CODE ---
 try {
-	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+	require $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;
 	$h->setSubtitle("Přihlášení uživatele");
 	unset($h);
+	require $_SERVER[DOCUMENT_ROOT] . "/Crypto/anti_csrf.php"
+	
 // --- PAGE CODE START ---
 //	print_r($_POST);
 ?>
@@ -36,6 +38,7 @@ try {
 <?php
 
 	print_r($_POST);
+	echo "<br/>anti_csrf=".AntiCsrf::getToken()."<br/>";
 	switch ($_POST['action']) {
 		case 'LOGOUT':
 			unset($_SESSION["user_id"]);
