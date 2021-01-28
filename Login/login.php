@@ -1,7 +1,5 @@
 <?php
 // --- PREAMBLE CODE ---
-session_start();
-ob_start();
 try {
 	include $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
 	$h = new Header;

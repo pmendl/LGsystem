@@ -39,6 +39,11 @@ class Header
 	
 	function __construct()
 	{
+		session_set_cookie_params(["SameSite" => "Strict"]); //none, lax, strict
+		// session_set_cookie_params(["Secure" => "true"]); //false, true //IMPORTANT: MUST be activated in production code + check/set PHP 7.3.0+
+		session_set_cookie_params(["HttpOnly" => "true"]); //false, true
+		session_start();
+		ob_start();
 		echo <<<EOT
 <!DOCTYPE html>
 <html>
