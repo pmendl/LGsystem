@@ -36,18 +36,21 @@ try {
 		<div class="system-report">
 
 <?php
-
+	if(time() < $_SESSION[login_not_earlier]) {
+		time_sleep_until ($_SESSION[login_not_earlier]);
+	}
+	$_SESSION[login_not_earlier] = time() + 3; // TODO: Separate to named constants 
 	print_r($_POST);
-	echo "<br/>anti_csrf=".AntiCsrf::getToken()."<br/>";
+	echo "<br/>";
 	switch ($_POST['action']) {
 		case 'LOGOUT':
 			unset($_SESSION["user_id"]);
 			echo "LOGOUT done !!!<br/>";
 		case 'LOGIN':
-			echo "<br/>Point 1<br/>";
-			echo __DIR__ . "<br/>";
+			if(!AntiCsrf::checkToken($_POST['anti-csrf'])) {
+				throw new Exception("Invalid antiCSRF token", 6001);
+			}
 			require(__DIR__ . "/../Tools/database.php");
-			echo "Point 2<br/>";
 			$db=new Database("database.ini",true);
 			if (!is_object($db->conn)) {
 				throw new Exception("Database connection is not an object", 1001);
@@ -94,11 +97,12 @@ try {
 <div class="main-box">
 		<!-- <form action="/Login/login.php" method="post"> -->
 		<form action="/index.php" method="post">
+			<input type="hidden" id="anti-csrf" name="anti-csrf" value="<?php echo AntiCsrf::getToken() ?>">
 <?php
 			if(array_key_exists("user_id", $_SESSION)) { ?>
 				SESSION_USER_ID = <?php echo $_SESSION["user_id"]; ?><br/><br/>
 				<button type="submit" name="action" value="LOGOUT">Odhlášení</button>
-<?php } else { ?>
+<?php 		} else { ?>
 				<div class="to-be-centred">Prosím, přihlaste se:</div>
 				
 				<div class="login-rows">

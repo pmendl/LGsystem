@@ -5,7 +5,7 @@
 		
 		static function init() {
 			self::$prev_anti_csrf = $_SESSION['anti_csrf']; 
-			$_SESSION['anti_csrf'] = bin2hex(random_bytes(1));
+			$_SESSION['anti_csrf'] = bin2hex(random_bytes(8));
 		}
 	
 		static function getToken() {
