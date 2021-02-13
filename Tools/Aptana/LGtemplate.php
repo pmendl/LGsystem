@@ -1,11 +1,11 @@
 <?php
 // --- PREAMBLE CODE ---
 try {
-	require $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+	require $_SERVER['DOCUMENT_ROOT'] . "/Tools/header.php";
 	$h = new Header;
 	// eventual parameters for header goes here 
 	unset($h);
-	require $_SERVER[DOCUMENT_ROOT] . "/Crypto/anti_csrf.php"
+	require $_SERVER['DOCUMENT_ROOT'] . "/Crypto/anti_csrf.php"
 	// --- PAGE CODE START ---
 ?>
 
@@ -24,6 +24,6 @@ try {
 	ob_end_flush();
 } catch (Exception $e) {
 	ob_end_clean();
-	include $_SERVER[DOCUMENT_ROOT] . "/Tools/exception_report.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Tools/exception_report.php";
 }
 ?>

@@ -1,11 +1,11 @@
 <?php
 // --- PREAMBLE CODE ---
 try {
-	require $_SERVER[DOCUMENT_ROOT] . "/Tools/header.php";
+	require $_SERVER['DOCUMENT_ROOT'] . "/Tools/header.php";
 	$h = new Header;
 	$h->setSubtitle("Přihlášení uživatele");
 	unset($h);
-	require $_SERVER[DOCUMENT_ROOT] . "/Crypto/anti_csrf.php"
+	include_once $_SERVER['DOCUMENT_ROOT'] . "/Crypto/anti_csrf.php";
 	
 // --- PAGE CODE START ---
 //	print_r($_POST);
@@ -36,10 +36,11 @@ try {
 		<div class="system-report">
 
 <?php
-	if(time() < $_SESSION[login_not_earlier]) {
-		time_sleep_until ($_SESSION[login_not_earlier]);
+
+	if(isset($_SESSION['login_not_earlier']) && (time() < $_SESSION['login_not_earlier'])) {
+		time_sleep_until ($_SESSION['login_not_earlier']);
 	}
-	$_SESSION[login_not_earlier] = time() + 3; // TODO: Separate to named constants 
+	$_SESSION['login_not_earlier'] = time() + 3; // TODO: Separate "3" to named constants
 	print_r($_POST);
 	echo "<br/>";
 	switch ($_POST['action']) {
@@ -93,12 +94,14 @@ try {
 			
 		case 'INITIAL':
 //			echo '<button type="button" onclick="reloadIndex()">OK</button>';
+			echo "INITIAL CASE";
 ?>
 <div class="main-box">
 		<!-- <form action="/Login/login.php" method="post"> -->
 		<form action="/index.php" method="post">
-			<input type="hidden" id="anti-csrf" name="anti-csrf" value="<?php echo AntiCsrf::getToken() ?>">
+			<input type="hidden" id="anti-csrf" name="anti-csrf" value="">
 <?php
+//			<input type="hidden" id="anti-csrf" name="anti-csrf" value="<?php echo AntiCsrf::getToken()">
 			if(array_key_exists("user_id", $_SESSION)) { ?>
 				SESSION_USER_ID = <?php echo $_SESSION["user_id"]; ?><br/><br/>
 				<button type="submit" name="action" value="LOGOUT">Odhlášení</button>
@@ -125,6 +128,7 @@ try {
 			}
 ?>
 		</form>
+
 	</div>
 <?php	
 		break;
@@ -132,10 +136,10 @@ try {
 	echo "</div></div>\n";
 	}
 // --- PAGE CODE END ---
-	include "../Tools/footer.html";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Tools/footer.html";
 	ob_end_flush();
 } catch (Exception $e) {
 	ob_end_clean();
-	include $_SERVER[DOCUMENT_ROOT] . "/Tools/exception_report.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/Tools/exception_report.php";
 }
 ?>	

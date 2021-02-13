@@ -1,11 +1,16 @@
 <?php
+ 
 	class AntiCsrf {
 		
 		static private $prev_anti_csrf;
 		
 		static function init() {
-			self::$prev_anti_csrf = $_SESSION['anti_csrf']; 
-			$_SESSION['anti_csrf'] = bin2hex(random_bytes(8));
+			if (isset($_SESSION['anti_csrf'])) {
+				self::$prev_anti_csrf = $_SESSION['anti_csrf']; 
+				$_SESSION['anti_csrf'] = bin2hex(random_bytes(8));
+			} else {
+				self::$prev_anti_csrf = "";
+			}
 		}
 	
 		static function getToken() {
@@ -19,4 +24,5 @@
 	}
 	
 	AntiCsrf::init();
+ 
 ?>
